@@ -7,19 +7,21 @@ CMAKE_CMD='cmake
 -D OSS:BOOL=OFF
 -D ESD:BOOL=OFF
 -D SDL_SHARED:BOOL=OFF
--D CMAKE_INSTALL_PREFIX="../linux64"
+-D CMAKE_INSTALL_PREFIX="../../build"
 -G "Unix Makefiles"
 -D CMAKE_DEBUG_POSTFIX="_debug"
 '
 
-mkdir -p build/lindebug
-cd build/lindebug
+mkdir build
+
+mkdir -p buildint/lindebug
+cd buildint/lindebug
 eval $CMAKE_CMD -D CMAKE_BUILD_TYPE="Debug" ../..
 make -j7 install
 cd ../..
 
-mkdir -p build/linrelease
-cd build/linrelease
-eval $CMAKE_CMD -D CMAKE_BUILD_TYPE="RelWithDebInfo" ../..
+mkdir -p buildint/linrelease
+cd buildint/linrelease
+eval $CMAKE_CMD -D CMAKE_BUILD_TYPE="Release" ../..
 make -j7 install
 cd ../..

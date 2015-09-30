@@ -1,6 +1,6 @@
 # sdl pkg-config source file
 
-prefix=/home/ajohnson/Documents/src/SDL2-2.0.3/build/linux64
+prefix=/home/ajohnson/Documents/src/qng-sdl/quadrantng/dependency/sdl2/build
 exec_prefix=${prefix}
 libdir=${exec_prefix}/lib
 includedir=${prefix}/include
