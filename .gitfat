@@ -1,0 +1,6 @@
+[http]
+remote = http://rs29.draster.com:2086/largefiles
+[rsync]
+remote = rs29.draster.com:/rsync/largefiles
+sshuser = rsync
+sshport = 8561
