@@ -1,0 +1,10 @@
+*.dll filter=fat -crlf
+*.lib filter=fat -crlf
+*.ilk filter=fat -crlf
+*.pdb filter=fat -crlf
+*.pch filter=fat -crlf
+*.exp filter=fat -crlf
+*.exe filter=fat -crlf
+*.so.* filter=fat -crlf
+*.so filter=fat -crlf
+*.a filter=fat -crlf
