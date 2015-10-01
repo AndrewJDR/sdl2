@@ -158,7 +158,7 @@
 /* #undef HAVE_PTHREAD_SETNAME_NP */
 /* #undef HAVE_PTHREAD_SET_NAME_NP */
 #define HAVE_SEM_TIMEDWAIT 1
-#elif __WIN32__
+#elif defined(__WIN32__)
 #define HAVE_STDARG_H 1
 #define HAVE_STDDEF_H 1
 #else
