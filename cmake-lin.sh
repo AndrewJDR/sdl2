@@ -20,6 +20,6 @@ cd ../..
 
 mkdir -p build/linrelease
 cd build/linrelease
-eval $CMAKE_CMD -D CMAKE_BUILD_TYPE="RelWithDebInfo" ../..
+eval $CMAKE_CMD -D CMAKE_BUILD_TYPE="Release" ../..
 make -j7 install
 cd ../..

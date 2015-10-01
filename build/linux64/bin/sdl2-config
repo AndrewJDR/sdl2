@@ -1,6 +1,6 @@
 #!/bin/sh
 
-prefix=/home/ajohnson/Documents/src/SDL2-2.0.3/build/linux64
+prefix=/home/ajohnson/Documents/src/qng-sdl/quadrantng/dependency/sdl2/build/linux64
 exec_prefix=${prefix}
 exec_prefix_set=no
 libdir=${exec_prefix}/lib
