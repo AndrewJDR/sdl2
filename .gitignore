@@ -1,1 +1,2 @@
-buildint/
+build/linrelease
+build/lindebug
