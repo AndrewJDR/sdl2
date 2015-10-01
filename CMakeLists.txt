@@ -153,6 +153,10 @@ if(NOT ("$ENV{CFLAGS}" STREQUAL "")) # Hackish, but does the trick on Win32
 endif()
 
 if(MSVC)
+  # Improved debugging of local variables in release mode.
+  set(CMAKE_C_FLAGS_RELEASE "${CMAKE_C_FLAGS_RELEASE} /Zo /d2Zi+")
+  set(CMAKE_C_FLAGS_RELWITHDEBINFO "${CMAKE_C_FLAGS_RELWITHDEBINFO} /Zo /d2Zi+")
+
   option(FORCE_STATIC_VCRT "Force /MT for static VC runtimes" OFF)
   if(FORCE_STATIC_VCRT)
     foreach(flag_var
@@ -1240,6 +1244,11 @@ set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} ${EXTRA_CFLAGS}")
 add_library(SDL2main STATIC ${SDLMAIN_SOURCES})
 set(_INSTALL_LIBS "SDL2main")
 
+if(MSVC)
+  set_target_properties(SDL2main PROPERTIES COMPILE_PDB_NAME_RELWITHDEBINFO "SDL2main" )
+  set_target_properties(SDL2main PROPERTIES COMPILE_PDB_NAME_DEBUG "SDL2main${CMAKE_DEBUG_POSTFIX}" )
+endif()
+
 if(SDL_SHARED)
   add_library(SDL2 SHARED ${SOURCE_FILES})
   if(UNIX)
@@ -1262,9 +1271,12 @@ if(SDL_STATIC)
   add_library(SDL2-static STATIC ${SOURCE_FILES})
   set_target_properties(SDL2-static PROPERTIES OUTPUT_NAME "SDL2")
   if(MSVC)
+    set_target_properties(SDL2-static PROPERTIES LINK_FLAGS_RELWITHDEBINFO "/NODEFAULTLIB")
     set_target_properties(SDL2-static PROPERTIES LINK_FLAGS_RELEASE "/NODEFAULTLIB")
     set_target_properties(SDL2-static PROPERTIES LINK_FLAGS_DEBUG "/NODEFAULTLIB")
     set_target_properties(SDL2-static PROPERTIES STATIC_LIBRARY_FLAGS "/NODEFAULTLIB")
+    set_target_properties(SDL2-static PROPERTIES COMPILE_PDB_NAME_RELWITHDEBINFO "SDL2" )
+    set_target_properties(SDL2-static PROPERTIES COMPILE_PDB_NAME_DEBUG "SDL2${CMAKE_DEBUG_POSTFIX}" )
   endif()
   # TODO: Win32 platforms keep the same suffix .lib for import and static
   # libraries - do we need to consider this?
@@ -1304,6 +1316,8 @@ if(NOT WINDOWS OR CYGWIN)
   # TODO: what about the .spec file? Is it only needed for RPM creation?
   install(FILES "${SDL2_SOURCE_DIR}/sdl2.m4" DESTINATION "share/aclocal")
 else()
-  install(TARGETS SDL2 RUNTIME DESTINATION bin)
+  if(SDL_SHARED)
+    install(TARGETS SDL2 RUNTIME DESTINATION bin)
+  endif()
 endif()
 
